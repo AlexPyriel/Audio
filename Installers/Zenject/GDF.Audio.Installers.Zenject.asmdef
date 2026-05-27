@@ -1,0 +1,24 @@
+{
+    "name": "GDF.Audio.Installers.Zenject",
+    "references": [
+        "GDF.Audio",
+        "Zenject"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "AUDIO_ZENJECT"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.mathijsbakker.extenject",
+            "expression": "",
+            "define": "AUDIO_ZENJECT"
+        }
+    ],
+    "noEngineReferences": false
+}

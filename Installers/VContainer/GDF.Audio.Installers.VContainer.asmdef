@@ -1,0 +1,24 @@
+{
+    "name": "GDF.Audio.Installers.VContainer",
+    "references": [
+        "GDF.Audio",
+        "VContainer"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "AUDIO_VCONTAINER"
+    ],
+    "versionDefines": [
+        {
+            "name": "jp.hadashikick.vcontainer",
+            "expression": "",
+            "define": "AUDIO_VCONTAINER"
+        }
+    ],
+    "noEngineReferences": false
+}

@@ -1,0 +1,20 @@
+{
+  "name": "com.gdf.audio",
+  "version": "1.0.0",
+  "displayName": "GDF Audio",
+  "description": "Cue-based audio service for Unity: SFX pooling, music crossfade, persisted audio settings, and ConfigRepository-backed catalogs.",
+  "unity": "6000.0",
+  "author": {
+    "name": "GDF"
+  },
+  "dependencies": {
+    "com.gdf.local-data-storage": "https://github.com/AlexPyriel/LocalDataStorage.git#v1.0.0"
+  },
+  "keywords": [
+    "audio",
+    "sfx",
+    "music",
+    "cue",
+    "mixer"
+  ]
+}

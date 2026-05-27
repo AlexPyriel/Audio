@@ -1,0 +1,24 @@
+{
+    "name": "GDF.Audio.Installers.Reflex",
+    "references": [
+        "GDF.Audio",
+        "Reflex"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "AUDIO_REFLEX"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.gustavopsantos.reflex",
+            "expression": "",
+            "define": "AUDIO_REFLEX"
+        }
+    ],
+    "noEngineReferences": false
+}

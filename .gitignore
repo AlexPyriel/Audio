@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Generated project files
+*.csproj
+*.sln
+*.sln.DotSettings.user
+
+# Unity-generated junk if any temporary host project ever appears here
+Library/
+Temp/
+obj/
+Logs/
