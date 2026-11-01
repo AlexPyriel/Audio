@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.0] - 2026-11-01
+
+### Changed
+
+- **Depends on `com.gdf.local-data-storage >= 2.0.0`.** The runtime API that the package uses
+  (`Save<T>` / `TryLoad<T>`) is unchanged by the dependency bump; no code changes are required for
+  consumers. Downstream projects that keep the default installer configuration (PlayerPrefs backend
+  + AES encryption + legacy pass phrase) read existing v1 saves without migration.
+
+### Internal
+
+- Test fake `InMemoryLocalDataStorage` extended to the full v2 interface (slot overloads, async
+  variants, events). No public API or behavior change for the Audio package itself.
+
 ## [1.0.0] - 2026-05-27
 
 - Initial public release of the package.

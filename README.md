@@ -34,7 +34,7 @@ Assembly name: `GDF.Audio`
 Add this dependency to `Packages/manifest.json`:
 
 ```json
-"com.gdf.audio": "https://github.com/AlexPyriel/Audio.git#v1.0.0"
+"com.gdf.audio": "https://github.com/AlexPyriel/Audio.git#v1.1.0"
 ```
 
 For development tracking (not recommended for production), use `#main` instead of a tag.
@@ -42,7 +42,7 @@ For development tracking (not recommended for production), use `#main` instead o
 You can also install it from Unity Package Manager:
 
 - `Window -> Package Manager -> + -> Add package from git URL...`
-- `https://github.com/AlexPyriel/Audio.git#v1.0.0`
+- `https://github.com/AlexPyriel/Audio.git#v1.1.0`
 
 ## Usage
 
