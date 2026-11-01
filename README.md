@@ -233,3 +233,7 @@ Use the Zenject installer when your project uses Zenject or Extenject. UPM insta
 Use the Reflex installer when your project uses Reflex. UPM installs are enabled automatically when the
 `com.gustavopsantos.reflex` package is present. Source-based or asset-based installs require the
 `AUDIO_REFLEX` scripting define and a `Reflex` assembly in the project.
+
+## License
+
+MIT. See `LICENSE.md`.
