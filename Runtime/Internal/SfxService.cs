@@ -9,7 +9,7 @@ namespace Audio.Internal
     /// <see cref="AudioSource"/> objects under a <c>DontDestroyOnLoad</c> root GameObject.
     /// Cooldown and max-voices are tracked by cue reference; reuse cue values across calls.
     /// </summary>
-    internal sealed class SfxService : ISfxService
+    public sealed class SfxService : ISfxService
     {
         private const int INITIAL_POOL_SIZE = 16;
         private const string ROOT_GO_NAME = "[GDF.Audio] SfxRoot";
@@ -25,6 +25,8 @@ namespace Audio.Internal
         private readonly Dictionary<SfxCue, float> _lastPlayTime;
         private bool _disposed;
 
+        /// <summary>Creates the pooled SFX player; source volumes follow <paramref name="settings"/> live.</summary>
+        /// <param name="settings">Bus volumes and mute flags.</param>
         public SfxService(IAudioSettingsService settings)
         {
             _settings = settings ?? throw new ArgumentNullException(nameof(settings));

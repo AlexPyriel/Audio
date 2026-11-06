@@ -10,7 +10,7 @@ namespace Audio.Internal
     /// objects under a <c>DontDestroyOnLoad</c> root GameObject and crossfades between them.
     /// Only one music cue is active at a time.
     /// </summary>
-    internal sealed class MusicService : IMusicService
+    public sealed class MusicService : IMusicService
     {
         private const string ROOT_GO_NAME = "[GDF.Audio] MusicRoot";
         private const string SOURCE_GO_NAME = "MusicSource";
@@ -33,6 +33,8 @@ namespace Audio.Internal
         /// <inheritdoc />
         public event Action CurrentChanged;
 
+        /// <summary>Creates the crossfading music player; its volume follows <paramref name="settings"/> live.</summary>
+        /// <param name="settings">Bus volumes and mute flags.</param>
         public MusicService(IAudioSettingsService settings)
         {
             _settings = settings ?? throw new ArgumentNullException(nameof(settings));

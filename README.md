@@ -17,24 +17,21 @@ Assembly name: `GDF.Audio`
 - Optional `AudioMixer` integration: cues without a mixer group play through `AudioSource.volume` directly.
 - Per-bus settings (master, music, SFX) persisted via `com.gdf.local-data-storage`, exposed through `IAudioSettingsService`.
 - Perceptual `linear^2` volume curve applied on the playback path; stored volumes stay linear for UI sliders.
-- DI installers for VContainer, Zenject/Extenject, and Reflex.
+- VContainer installer; public `sealed` implementations for any other DI container.
 
 ## Requirements
 
 - Unity `6000.0+`
-- `com.gdf.local-data-storage` `1.0.0+`
+- `com.gdf.local-data-storage` `3.0.0+`
 - `com.cysharp.unitask`
-- One of the supported DI containers (optional, required only when using the matching installer):
-  - `jp.hadashikick.vcontainer`
-  - `com.mathijsbakker.extenject`
-  - `com.gustavopsantos.reflex`
+- `jp.hadashikick.vcontainer` is required only when using the bundled installer.
 
 ## Installation (UPM via Git)
 
 Add this dependency to `Packages/manifest.json`:
 
 ```json
-"com.gdf.audio": "https://github.com/AlexPyriel/Audio.git#v1.1.0"
+"com.gdf.audio": "https://github.com/AlexPyriel/Audio.git#v2.0.0"
 ```
 
 For development tracking (not recommended for production), use `#main` instead of a tag.
@@ -42,7 +39,7 @@ For development tracking (not recommended for production), use `#main` instead o
 You can also install it from Unity Package Manager:
 
 - `Window -> Package Manager -> + -> Add package from git URL...`
-- `https://github.com/AlexPyriel/Audio.git#v1.1.0`
+- `https://github.com/AlexPyriel/Audio.git#v2.0.0`
 
 ## Usage
 
@@ -68,8 +65,7 @@ public sealed class RootLifetimeScope : LifetimeScope
 }
 ```
 
-For Zenject use `AudioZenjectInstaller`, for Reflex use `AudioReflexInstaller`. See the
-`DI Policy` section below.
+Other containers bind the public types directly; see [Using with Zenject / Reflex](#using-with-zenject--reflex).
 
 ### 2. Inject the services
 
@@ -209,12 +205,11 @@ In most cases, no explicit `.asmdef` reference is required.
 
 ## DI Policy
 
-The package exposes service interfaces and keeps concrete runtime players internal.
+The package exposes service interfaces; the implementations (`AudioSettingsService`, `SfxService`, `MusicService`)
+are `public sealed` so any container can construct them.
 Catalog ownership stays in the host project: build cues from whatever storage you prefer
 (ConfigRepository, plain ScriptableObjects, Addressables, hardcoded constants) and pass
 the resolved cue value to the package services.
-
-Use the DI installer that matches your project's container to wire the package services.
 
 ### VContainer
 
@@ -222,17 +217,30 @@ Use the VContainer installer when your project uses VContainer. UPM installs are
 `jp.hadashikick.vcontainer` package is present. Source-based or asset-based installs require the
 `AUDIO_VCONTAINER` scripting define and a `VContainer` assembly in the project.
 
-### Zenject
+## Using with Zenject / Reflex
 
-Use the Zenject installer when your project uses Zenject or Extenject. UPM installs are enabled automatically when the
-`com.mathijsbakker.extenject` package is present. Source-based or asset-based installs require the
-`AUDIO_ZENJECT` scripting define and a `Zenject` assembly in the project.
+The package ships only a VContainer installer. Other containers bind the public types directly, next to the
+`ILocalDataStorage` binding from `com.gdf.local-data-storage`.
 
-### Reflex
+Zenject (`MonoInstaller` or `Installer`):
 
-Use the Reflex installer when your project uses Reflex. UPM installs are enabled automatically when the
-`com.gustavopsantos.reflex` package is present. Source-based or asset-based installs require the
-`AUDIO_REFLEX` scripting define and a `Reflex` assembly in the project.
+```csharp
+using Audio.Internal;
+
+Container.Bind<IAudioSettingsService>().To<AudioSettingsService>().AsSingle();
+Container.Bind<ISfxService>().To<SfxService>().AsSingle();
+Container.Bind<IMusicService>().To<MusicService>().AsSingle();
+```
+
+Reflex (`IInstaller`):
+
+```csharp
+using Audio.Internal;
+
+builder.AddSingleton(typeof(AudioSettingsService), typeof(IAudioSettingsService));
+builder.AddSingleton(typeof(SfxService), typeof(ISfxService));
+builder.AddSingleton(typeof(MusicService), typeof(IMusicService));
+```
 
 ## License
 

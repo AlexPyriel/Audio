@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.0.0] - 2026-11-06
+
+Breaking release for projects on Zenject or Reflex. VContainer projects upgrade with no code changes.
+
+### Changed
+
+- `AudioSettingsService`, `SfxService` and `MusicService` are `public sealed`, so any DI container can bind them.
+- Depends on `com.gdf.local-data-storage >= 3.0.0`.
+
+### Removed
+
+- Zenject installer (`AudioZenjectInstaller`) and Reflex installer (`AudioReflexInstaller`). The README section
+  "Using with Zenject / Reflex" shows the replacement bindings.
+
 ## [1.1.0] - 2026-11-01
 
 ### Changed

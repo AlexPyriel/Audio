@@ -9,7 +9,7 @@ namespace Audio.Internal
     /// Stored volumes are linear in the <c>[0, 1]</c> range; <see cref="GetEffectiveVolume"/> applies a
     /// perceptual <c>linear^2</c> curve and the master bus cascade.
     /// </summary>
-    internal sealed class AudioSettingsService : IAudioSettingsService
+    public sealed class AudioSettingsService : IAudioSettingsService
     {
         private readonly ILocalDataStorage _storage;
         private AudioSettingsData _data;
@@ -19,6 +19,8 @@ namespace Audio.Internal
         /// <inheritdoc />
         public event Action<EAudioBus> MutedChanged;
 
+        /// <summary>Creates the settings service; volumes and mute flags persist through <paramref name="storage"/>.</summary>
+        /// <param name="storage">Storage that holds <see cref="AudioSettingsData"/>.</param>
         public AudioSettingsService(ILocalDataStorage storage)
         {
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
