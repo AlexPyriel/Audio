@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.0] - 2026-11-17
+
+### Added
+
+- `SfxCue.IgnoreListenerPause` (default `false`) and `MusicCue.IgnoreListenerPause` (default `true`).
+  Under `AudioListener.pause`, gameplay SFX freeze while music and flagged UI SFX keep playing.
+
+### Fixed
+
+- `SfxService` no longer recycles a pooled source that is frozen by `AudioListener.pause`, so a sound
+  played during a pause cannot cut a gameplay sound that should resume afterward.
+
 ## [2.0.0] - 2026-11-06
 
 Breaking release for projects on Zenject or Reflex. VContainer projects upgrade with no code changes.

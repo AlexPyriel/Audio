@@ -180,6 +180,9 @@ namespace Audio.Internal
                 SfxCue cue = _active[i].Cue;
                 AudioSource source = _active[i].Source;
                 if (cue.Loop) continue;
+                // A source frozen by AudioListener.pause is not finished; recycling it would cut the sound
+                // that should resume when the listener unpauses.
+                if (AudioListener.pause && !source.ignoreListenerPause) continue;
                 if (source.isPlaying) continue;
                 ReleaseToPool(source);
                 _active.RemoveAt(i);
@@ -204,6 +207,7 @@ namespace Audio.Internal
             source.clip = null;
             source.outputAudioMixerGroup = null;
             source.loop = false;
+            source.ignoreListenerPause = false;
             source.spatialBlend = 0f;
             source.transform.localPosition = Vector3.zero;
             _pool.Add(source);
@@ -228,6 +232,7 @@ namespace Audio.Internal
             source.priority = Mathf.Clamp(cue.Priority, 0, 255);
             source.spatialBlend = Mathf.Clamp01(cue.SpatialBlend);
             source.loop = cue.Loop;
+            source.ignoreListenerPause = cue.IgnoreListenerPause;
             if (hasPosition)
             {
                 source.transform.position = worldPosition;

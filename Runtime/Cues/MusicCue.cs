@@ -48,5 +48,12 @@ namespace Audio
         /// set <see langword="false"/> for one-shot stingers, intros, and outros.
         /// </summary>
         public bool Loop = true;
+
+        /// <summary>
+        /// Whether the music keeps playing while <c>AudioListener.pause</c> is set. On by default so background
+        /// music carries on under a pause menu; turn it off for music that must stop with the game, such as a
+        /// rhythm track.
+        /// </summary>
+        public bool IgnoreListenerPause = true;
     }
 }

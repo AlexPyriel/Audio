@@ -1,6 +1,6 @@
 {
   "name": "com.gdf.audio",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "displayName": "GDF Audio",
   "description": "Cue-based audio service for Unity: SFX pooling, music crossfade, persisted audio settings, and ConfigRepository-backed catalogs.",
   "unity": "6000.0",

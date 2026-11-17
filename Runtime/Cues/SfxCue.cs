@@ -65,5 +65,11 @@ namespace Audio
         /// Whether the cue loops until explicitly stopped through the returned <c>SfxHandle</c>.
         /// </summary>
         public bool Loop;
+
+        /// <summary>
+        /// Whether the cue keeps playing while <c>AudioListener.pause</c> is set. Leave it off for gameplay
+        /// sounds so they freeze with the game; turn it on for UI sounds that must stay audible in a pause menu.
+        /// </summary>
+        public bool IgnoreListenerPause;
     }
 }

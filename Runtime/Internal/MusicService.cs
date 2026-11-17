@@ -79,6 +79,7 @@ namespace Audio.Internal
             _idle.clip = cue.Clip;
             _idle.outputAudioMixerGroup = cue.MixerGroup;
             _idle.loop = cue.Loop;
+            _idle.ignoreListenerPause = cue.IgnoreListenerPause;
             _idle.volume = 0f;
             _idle.Play();
 

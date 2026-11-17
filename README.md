@@ -14,6 +14,7 @@ Assembly name: `GDF.Audio`
 - 2-source music crossfade orchestrated with `UniTask`.
 - World-positional SFX via `Play(cue, Vector3)` overload.
 - Looped SFX with explicit `Stop(SfxCue)` and `StopAll()` control.
+- Per-cue `IgnoreListenerPause`: under `AudioListener.pause`, gameplay SFX freeze while music and flagged UI SFX keep playing.
 - Optional `AudioMixer` integration: cues without a mixer group play through `AudioSource.volume` directly.
 - Per-bus settings (master, music, SFX) persisted via `com.gdf.local-data-storage`, exposed through `IAudioSettingsService`.
 - Perceptual `linear^2` volume curve applied on the playback path; stored volumes stay linear for UI sliders.
@@ -31,7 +32,7 @@ Assembly name: `GDF.Audio`
 Add this dependency to `Packages/manifest.json`:
 
 ```json
-"com.gdf.audio": "https://github.com/AlexPyriel/Audio.git#v2.0.0"
+"com.gdf.audio": "https://github.com/AlexPyriel/Audio.git#v2.1.0"
 ```
 
 For development tracking (not recommended for production), use `#main` instead of a tag.
@@ -39,7 +40,7 @@ For development tracking (not recommended for production), use `#main` instead o
 You can also install it from Unity Package Manager:
 
 - `Window -> Package Manager -> + -> Add package from git URL...`
-- `https://github.com/AlexPyriel/Audio.git#v2.0.0`
+- `https://github.com/AlexPyriel/Audio.git#v2.1.0`
 
 ## Usage
 
@@ -161,6 +162,30 @@ if (_music.IsPlaying)
 
 _music.CurrentChanged += () => Debug.Log($"Music: {_music.Current?.Clip.name ?? "(none)"}");
 ```
+
+### Pause menus and `AudioListener.pause`
+
+The package does not own game pause. When the host sets `AudioListener.pause = true`, Unity
+freezes every source except those marked `ignoreListenerPause`, and the services copy that flag
+from the cue on every `Play`:
+
+| Cue | `IgnoreListenerPause` default | Under `AudioListener.pause` |
+|-----|-------------------------------|------------------------------|
+| `SfxCue` | `false` | freezes, resumes on unpause |
+| `MusicCue` | `true` | keeps playing |
+
+Mark the UI sounds that must stay audible in a pause menu:
+
+```csharp
+public static readonly SfxCue UiClick = new()
+{
+    Clips = new[] { /* ... */ },
+    IgnoreListenerPause = true,
+};
+```
+
+Set `IgnoreListenerPause = false` on a `MusicCue` that must stop with the game, such as a
+rhythm-game track. `IMusicService.Pause()` / `Resume()` stay independent of the listener pause.
 
 ### 6. Audio settings UI
 
